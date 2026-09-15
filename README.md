@@ -13,13 +13,15 @@ here should be reflected back there if they affect the approved concept.
 
 Status: v0.1 baseline, refined and enhanced with gentle motion on 2026-09-15 after owner review; alternative homepage directions will be explored before client sharing
 
-`public-site/` is a navigable, static HTML design concept for the **public marketing website** described in section 2.1 of the client's specification. It is a design deliverable, not production code: the form does not submit, the map is not embedded, and every photo, notice, testimonial and news item is a clearly labelled placeholder.
+This is a navigable, static HTML design concept for the **public marketing website** described in section 2.1 of the client's specification. It is a design deliverable, not production code: the form does not submit, the map is not embedded, and every photo, notice, testimonial and news item is a clearly labelled placeholder.
 
 The admin ERP, teacher portal and parent PWA screens (spec sections 2.2 to 2.4) are **not yet designed**; see `DESIGN.md` in the build repo for the direction they will follow.
 
 ## How to view
 
-Open `public-site/index.html` in a browser and scroll to review the motion. Fonts (Fredoka, Nunito) load from Google Fonts, so an internet connection is needed for the intended typography; the system fallbacks are still readable. Static screenshots for quick sharing are in `screenshots/`, but they do not demonstrate motion.
+Open `index.html` in a browser and scroll to review the motion. Fonts (Fredoka, Nunito) load from Google Fonts, so an internet connection is needed for the intended typography; the system fallbacks are still readable. Static screenshots for quick sharing are in `screenshots/`, but they do not demonstrate motion.
+
+On Vercel (or any static host), the pages sit directly at the repository root, so the deployment's base URL serves `index.html` without any redirect or root-directory configuration.
 
 ## Pages
 
