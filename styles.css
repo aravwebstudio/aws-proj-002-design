@@ -18,6 +18,8 @@
   --green-text: #147339;
   --green-100: #DDF3E4;
   --green-50:  #EEF9F1;
+  --hero-accent: var(--orange-600);      /* the hero highlight word + roof/book-line; themeable so a theme's true hero hue shows above the fold */
+  --hero-accent-soft: var(--orange-500);
   --cream: #FFF9EF;
   --paper: #FFFFFF;
   --ink: #1B2340;
@@ -36,6 +38,85 @@
   --motion-reveal: 620ms;
   --motion-draw: 720ms;
   --ease-out: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Vibrant palette options — client color review only (AWS-002-ADR-008, AWS-002-ADR-009).
+   Base tokens above stay as the "Original" palette. Hue choices are informed by vibrant,
+   high-saturation UI systems (Duolingo, Canva) and kids'-brand palette research rather than
+   small tweaks of Original, so each option reads as a genuinely distinct identity rather than
+   a slightly-different tint. --blue-900 stays fixed across every palette (dark, trustworthy
+   headings are a deliberate constant in those reference systems too); --ink and --ink-2 are
+   also unchanged. --ink-3 is overridden per palette because these creams are deliberately more
+   saturated than Original's, which would otherwise erode the muted-text contrast margin. */
+[data-theme="citrus"] {
+  --ink-3: #5A6280;
+  --blue-600: #0969D7;
+  --blue-100: #D3E6FF;
+  --blue-50:  #EBF3FF;
+  --orange-600: #FF470F;  /* hero accent: red-orange, decorative/large-text only */
+  --orange-500: #FF6A38;
+  --orange-100: #FFDAB8;
+  --orange-50:  #FFF0DD;
+  --orange-text: #BD2C00;
+  --gold: #FFB400;
+  --gold-deep: #E89400;
+  --green-600: #2FAE3E;
+  --green-700: #13862A;
+  --green-text: #0E6B22;
+  --green-100: #CFF0D0;
+  --green-50:  #EAFBEA;
+  --cream: #FFF6E2;
+  --line: #F5DFB0;
+  --line-strong: #E8C888;
+}
+[data-theme="meadow"] {
+  --ink-3: #5A6280;
+  --hero-accent: var(--green-600);   /* this palette's identity is teal-green, not orange, so the hero word and roof follow green here */
+  --hero-accent-soft: #35CFA0;
+  --blue-600: #046E9F;   /* deep teal-blue, secondary accent */
+  --blue-100: #CFEFFA;
+  --blue-50:  #E8F8FD;
+  --orange-600: #E65C00; /* warm contrast accent against the green-forward scene */
+  --orange-500: #FF8438;
+  --orange-100: #FFE0BE;
+  --orange-50:  #FFF2E2;
+  --orange-text: #A84300;
+  --gold: #FFD23F;       /* lemon-gold CTA, cooler than Citrus/Coral's amber */
+  --gold-deep: #E6B300;
+  --green-600: #0FBD89;  /* hero accent: teal-emerald, not grass — the theme's identity */
+  --green-700: #0B8460;
+  --green-text: #086B4C;
+  --green-100: #C9F3E4;
+  --green-50:  #E6FBF4;
+  --cream: #DFFAF0;
+  --line: #BFEEDD;
+  --line-strong: #9FE0C9;
+}
+[data-theme="coral"] {
+  --ink-3: #5A6280;
+  --blue-600: #0561D1;   /* hero accent: vivid sky blue, paired with the coral below */
+  --blue-100: #D6E6FF;
+  --blue-50:  #EFF5FF;
+  --orange-600: #FF2457; /* coral-pink replaces orange entirely for this palette's warm accent */
+  --orange-500: #FF5C82;
+  --orange-100: #FFD9E3;
+  --orange-50:  #FFEEF2;
+  --orange-text: #C7002E;
+  --gold: #FFC72C;
+  --gold-deep: #E6A400;
+  --green-600: #17D375;
+  --green-700: #0E8147;
+  --green-text: #0B6B3C;
+  --green-100: #CDF2DE;
+  --green-50:  #E8FAF0;
+  --cream: #E3EDFF;
+  --line: #C7DBFF;
+  --line-strong: #A9C7FA;
+}
+/* Brief color-only crossfade while a palette swap is applied by theme-switcher.js */
+.theme-transitioning, .theme-transitioning * {
+  transition: background-color 200ms var(--ease-out), border-color 200ms var(--ease-out),
+    color 200ms var(--ease-out), fill 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -190,7 +271,7 @@ section { padding-block: clamp(3rem, 7vw, 5.5rem); }
 /* Hero */
 .hero { padding-block: clamp(2.5rem, 6vw, 5rem) clamp(3rem, 7vw, 5.5rem); overflow: hidden; }
 .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; }
-.hero h1 .hl { color: var(--orange-600); }
+.hero h1 .hl { color: var(--hero-accent); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
 .hero-facts { list-style: none; padding: 1.5rem 0 0; margin: 2rem 0 0; display: flex; flex-wrap: wrap; gap: 1rem 2.25rem; border-top: 2px dashed var(--line-strong); }
 .fact { display: flex; gap: .6rem; align-items: flex-start; }
@@ -220,11 +301,11 @@ section { padding-block: clamp(3rem, 7vw, 5.5rem); }
 .hero-illustration .scene-cloud { fill: var(--paper); stroke: var(--blue-100); stroke-width: 4; }
 .hero-illustration .scene-ground { fill: var(--green-100); }
 .hero-illustration .scene-school { fill: var(--cream); stroke: var(--blue-900); stroke-width: 4; }
-.hero-illustration .scene-roof { fill: var(--orange-500); stroke: var(--blue-900); stroke-width: 4; stroke-linejoin: round; }
+.hero-illustration .scene-roof { fill: var(--hero-accent-soft); stroke: var(--blue-900); stroke-width: 4; stroke-linejoin: round; }
 .hero-illustration .scene-door { fill: var(--blue-900); }
 .hero-illustration .scene-window { fill: var(--blue-100); stroke: var(--blue-600); stroke-width: 3; }
 .hero-illustration .scene-book { fill: var(--paper); stroke: var(--blue-600); stroke-width: 4; stroke-linejoin: round; }
-.hero-illustration .scene-book-line { fill: none; stroke: var(--orange-500); stroke-width: 4; stroke-linecap: round; }
+.hero-illustration .scene-book-line { fill: none; stroke: var(--hero-accent-soft); stroke-width: 4; stroke-linecap: round; }
 .hero-illustration .scene-blocks rect { fill: var(--gold); stroke: var(--blue-900); stroke-width: 3; }
 .hero-illustration .scene-blocks rect + path { fill: var(--blue-600); }
 .hero-illustration .scene-blocks rect:nth-of-type(2) { fill: var(--orange-100); }
@@ -557,6 +638,73 @@ tbody tr { border-bottom: 1px solid var(--line); }
   .mobile-actions a.primary { background: var(--gold); box-shadow: 0 2px 0 var(--gold-deep); }
 }
 
+/* Theme switcher — color-review tool only; remove before launch (AWS-002-ADR-008) */
+.theme-switcher {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 70;
+  font-family: var(--font-body);
+}
+.theme-switcher-toggle {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .75rem 1.1rem;
+  border-radius: 999px;
+  border: 2px solid var(--blue-900);
+  background: var(--paper);
+  color: var(--blue-900);
+  font-weight: 800; font-size: .92rem;
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  transition: transform var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+}
+.theme-switcher-toggle .icon { width: 20px; height: 20px; }
+.theme-switcher-toggle:hover { transform: translateY(-1px); }
+.theme-switcher-toggle:active { transform: translateY(1px); }
+.theme-switcher-toggle[aria-expanded="true"] { background: var(--blue-900); color: #fff; }
+
+.theme-switcher-panel {
+  position: absolute;
+  right: 0; bottom: calc(100% + .6rem);
+  width: min(280px, calc(100vw - 2.5rem));
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 36px rgba(27,35,64,.18);
+  padding: 1rem;
+  transform-origin: bottom right;
+  opacity: 0; transform: scale(.95) translateY(4px);
+  visibility: hidden; pointer-events: none;
+  transition: opacity 160ms var(--ease-out), transform 160ms var(--ease-out), visibility 0s linear 160ms;
+}
+.theme-switcher-panel.is-open {
+  opacity: 1; transform: scale(1) translateY(0);
+  visibility: visible; pointer-events: auto;
+  transition: opacity 160ms var(--ease-out), transform 160ms var(--ease-out);
+}
+.theme-switcher-label { margin: 0 0 .7rem; font-weight: 800; color: var(--blue-900); font-size: .95rem; }
+.theme-switcher-options { display: grid; gap: .5rem; }
+.theme-swatch {
+  display: flex; align-items: center; gap: .65rem;
+  width: 100%; padding: .55rem .7rem;
+  border: 2px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--cream); cursor: pointer; text-align: left;
+  font-family: var(--font-body); font-weight: 700; font-size: .88rem; color: var(--ink);
+  transition: transform var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
+}
+.theme-swatch:hover { border-color: var(--blue-100); }
+.theme-swatch:active { transform: scale(.97); }
+.theme-swatch[aria-pressed="true"] { border-color: var(--blue-900); background: var(--blue-50); }
+.theme-swatch-dots { display: inline-flex; flex: none; }
+.theme-swatch-dots i { width: 14px; height: 14px; border-radius: 50%; background: var(--c); display: block; margin-left: -5px; border: 2px solid var(--paper); }
+.theme-swatch-dots i:first-child { margin-left: 0; }
+.theme-switcher-hint { margin: .8rem 0 0; font-size: .76rem; color: var(--ink-3); }
+
+@media (max-width: 760px) {
+  .theme-switcher { right: 1rem; bottom: calc(68px + env(safe-area-inset-bottom, 0px) + .85rem); }
+}
+@media print { .theme-switcher { display: none; } }
+
 /* Purposeful motion — progressively enhanced by motion.js */
 html.motion-ready [data-reveal] {
   opacity: 0;
@@ -606,4 +754,6 @@ html.motion-ready .hero-art.is-visible .scene-sun {
   [data-reveal] { opacity: 1 !important; transform: none !important; }
   .scribble[data-draw] path { stroke-dashoffset: 0 !important; }
   .badge-admissions, .scene-sun { animation: none !important; }
+  .theme-switcher-toggle, .theme-swatch { transition: none !important; }
+  .theme-switcher-panel, .theme-switcher-panel.is-open { transform: none !important; transition: opacity 160ms ease !important; }
 }
